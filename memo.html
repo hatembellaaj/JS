@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border:1px solid white;
+}
+</style>
+<body>
+
+<h2>A basic HTML table</h2>
+
+<label>Tour : </label><input type="text" id="t" value="J1"/><br>
+<label>Score J1 : </label><input type="text" id="S1" value="0"/><br>
+<label>Score J2 : </label><input type="text" id="S2" value="0"/><br>
+
+
+
+<table style="width:50%">
+  <tr>
+    <td><img id="0" src="back.jpeg" alt="Trulli" width="200" height="130" onclick="reverse()"></td>
+    <td><img id="1" src="back.jpeg" alt="Trulli" width="200" height="130" onclick="reverse()"></td>
+    <td><img id="2" src="back.jpeg" alt="Trulli" width="200" height="130" onclick="reverse()"></td>
+  </tr>
+  <tr>
+    <td><img id="3" src="back.jpeg" alt="Trulli" width="200" height="130" onclick="reverse()"></td>
+    <td><img id="4" src="back.jpeg" alt="Trulli" width="200" height="130" onclick="reverse()"></td>
+    <td><img id="5" src="back.jpeg" alt="Trulli" width="200" height="130" onclick="reverse()"></td>
+  </tr>
+</table>
+
+<script>
+    let images = [];
+    let id1 = -1;
+    let id2 = -1;
+    let s = [0,0];
+    let nbPhotosSurServeur = 3;
+    let numphoto=-1;
+
+
+    init();
+    function occurence(x)
+    {
+        let occ = 0 ;
+        for (let i=0; i<images.length; i++)
+            if(images[i]==x)
+                occ ++;
+        return occ;
+    }
+
+    function init(){
+        for(let i=0; i<6;i++)
+        {
+            do {
+                numphoto=Math.ceil(nbPhotosSurServeur*Math.random())
+            }while(occurence(numphoto)>1);
+
+            images[i]=numphoto;
+        }
+        console.log("images = ",images);
+    }
+
+    function reverse(){
+        document.getElementById(event.target.id).src = images[event.target.id]+".jpeg";
+        if (id1==-1)
+        {
+            id1=event.target.id;
+        }
+        else
+        {
+            id2=event.target.id;
+            checkcards();
+        } 
+    }
+    function checkcards(){
+        if (images[id1]!=images[id2])
+            setTimeout(resetchoice, 3000);
+        else
+        {
+            if (document.getElementById("t").value=="J1")
+            {
+                s[0]+=1;
+                document.getElementById("S1").value=s[0];
+            }
+            else
+            {
+                s[1]+=1;
+                document.getElementById("S2").value=s[1];
+            }
+            id1 = -1;
+            id2 = -1;            
+        }
+
+    }
+
+    function resetchoice()
+    {
+            document.getElementById(id1).src = "back.jpeg";
+            document.getElementById(id2).src = "back.jpeg";
+            id1 = -1;
+            id2 = -1;
+            if (document.getElementById("t").value=="J1")
+                document.getElementById("t").value="J2";
+            else
+                document.getElementById("t").value="J1";
+
+    }
+</script>
+
+</body>
+</html>
+
