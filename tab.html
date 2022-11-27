@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JavaScript Array operations</h2>
+
+<label>Donner un entier : </label><input type="number" id="e" />  
+<button onclick="addElement()">+</button><br>
+<p id="tab">Tab : </p>
+
+
+
+<p id="min">Min : </p>
+<p id="max">Max : </p>
+<p id="sum">Sum : </p>
+<p id="sort">Sort : </p>
+
+<script>
+    let T=[];
+
+    function addElement()
+    {
+        T.push(parseInt(document.getElementById("e").value));
+        document.getElementById("tab").innerHTML=T;
+
+        let min=T[0];
+        let max=T[0];
+        let sum = T[0]; 
+        for (let i=1; i<T.length; i++)
+        {
+            if (min> T[i])
+                min = T[i];
+            else if(max<T[i])
+                max = T[i]
+            sum +=T[i];
+        }
+
+        for(let i=0; i<T.length-1; i++)
+            for(let j=i+1; j<T.length; j++)
+                if(T[i]>T[j])
+                {
+                    let temp=T[i];
+                    T[i]=T[j];
+                    T[j]=temp;
+                }
+
+        document.getElementById("min").innerHTML=min;
+        document.getElementById("max").innerHTML=max;
+        document.getElementById("sum").innerHTML=sum;
+        document.getElementById("sort").innerHTML=T;
+    }
+
+
+</script>
+
+</body>
+</html>
